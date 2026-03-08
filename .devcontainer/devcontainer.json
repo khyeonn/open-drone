@@ -1,0 +1,26 @@
+{
+  "name": "pico-drone-dev",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "workspaceFolder": "/workspace",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+  ],
+  "runArgs": [
+    "--env=DISPLAY",
+    "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+    "--device=/dev/bus/usb",
+    "--device=/dev/dri",
+    "--privileged"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "nefrob.vscode-just-syntax",
+        "llvm-vs-code-extensions.vscode-clangd"
+      ]
+    }
+  }
+}

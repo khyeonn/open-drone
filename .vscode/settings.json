@@ -1,0 +1,22 @@
+{
+  // Enable formatting on save
+  "editor.formatOnSave": true,
+  // clangd is the formatter
+  "[cpp]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  },
+  // Disable MS C++ formatting and IntelliSense
+  "C_Cpp.formatting": "disabled",
+  "C_Cpp.intelliSenseEngine": "disabled",
+  // clangd tuning
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--completion-style=detailed",
+    "--query-driver=/usr/bin/arm-none-eabi-g++",
+    "--header-insertion=never"
+  ]
+}
