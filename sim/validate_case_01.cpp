@@ -1,6 +1,5 @@
 #include "core/utils/arange.hpp"
 #include "core/utils/export_to_csv.hpp"
-// #include "sim/math/numerical_methods/forward_euler.hpp"
 #include "sim/math/numerical_methods/rk4.hpp"
 #include <cmath>
 #include <cstdio>
@@ -9,7 +8,7 @@
 #include <vector>
 
 int main() {
-    std::printf("Running simulation...\n");
+    std::printf("Running simulation for NESC Atmospheric Case 01...\n");
     // Initial conditions
     double u0_bf_mps  = 1E-10;
     double v0_bf_mps  = 0;

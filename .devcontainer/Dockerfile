@@ -48,10 +48,11 @@ RUN git clone https://github.com/raspberrypi/picotool.git \
 WORKDIR /workspace
 
 RUN python3 -m venv /opt/venv
-
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN pip install --upgrade pip \
     && pip install numpy \
     && pip install matplotlib \
-    && pip install pandas
+    && pip install pandas \
+    && pip install pylint \
+    && pip install 'python-lsp-server[all]'

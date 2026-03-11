@@ -18,5 +18,15 @@
     "--completion-style=detailed",
     "--query-driver=/usr/bin/arm-none-eabi-g++",
     "--header-insertion=never"
+  ],
+  "python.defaultInterpreterPath": "/opt/venv/bin/python",
+  "python.languageServer": "Pylance",
+  "python.analysis.indexing": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.extraPaths": [
+    "sim/validation"
+  ],
+  "pylint.args": [
+    "--init-hook=import sys; sys.path.insert(0, 'sim/validation')"
   ]
 }

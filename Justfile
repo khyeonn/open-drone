@@ -60,3 +60,7 @@ build-sim:
 run-sim:
     @echo "####################### Running simulation #######################"
     ./build-sim/drone_sim
+
+plot case:
+    @echo "####################### Plotting simulation #######################"
+    python3 ./sim/validation/plot_sim_results.py --case case_{{ case }}

@@ -7,9 +7,15 @@
   },
   {
     "directory": "/workspace/build-sim",
-    "command": "/usr/bin/c++  -I/workspace/sim/../include/sim -I/workspace/sim/../include/core -I/workspace/core/../include -g -std=gnu++17 -o CMakeFiles/drone_sim.dir/physics/flat_earth_model.cpp.o -c /workspace/sim/physics/flat_earth_model.cpp",
-    "file": "/workspace/sim/physics/flat_earth_model.cpp",
-    "output": "CMakeFiles/drone_sim.dir/physics/flat_earth_model.cpp.o"
+    "command": "/usr/bin/c++  -I/workspace/sim/../include/sim -I/workspace/sim/../include/core -I/workspace/core/../include -g -std=gnu++17 -o CMakeFiles/drone_sim.dir/src/physics/flat_earth_model.cpp.o -c /workspace/sim/src/physics/flat_earth_model.cpp",
+    "file": "/workspace/sim/src/physics/flat_earth_model.cpp",
+    "output": "CMakeFiles/drone_sim.dir/src/physics/flat_earth_model.cpp.o"
+  },
+  {
+    "directory": "/workspace/build-sim",
+    "command": "/usr/bin/c++  -I/workspace/sim/../include/sim -I/workspace/sim/../include/core -I/workspace/core/../include -g -std=gnu++17 -o CMakeFiles/drone_sim.dir/src/physics/ussa1976.cpp.o -c /workspace/sim/src/physics/ussa1976.cpp",
+    "file": "/workspace/sim/src/physics/ussa1976.cpp",
+    "output": "CMakeFiles/drone_sim.dir/src/physics/ussa1976.cpp.o"
   },
   {
     "directory": "/workspace/build-sim/core_build",
