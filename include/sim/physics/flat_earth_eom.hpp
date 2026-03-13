@@ -1,9 +1,11 @@
 #pragma once
 
+#include "sim/physics/compute_flight_conditions.hpp"
 #include "sim/physics/ussa1976.hpp"
 #include "sim/types/aux_data.hpp"
 #include "sim/types/drone_state.hpp"
 #include "sim/types/external_loads.hpp"
+#include "sim/types/flight_conditions.hpp"
 #include <sim/math/Eigen/Core>
 
 struct ExternalLoads;
@@ -41,8 +43,7 @@ types::State derivative(Vehicle const& vehicle, types::State const& x,
     double s_psi   = std::sin(psi_rad);
     double t_theta = std::tan(theta_rad);
 
-    //     double r_sphere_m    = spec.radius_m;
-    //     double CD_approx     = spec.drag_coefficient;
+    // Vehicle specs
     double Aref_m2       = Vehicle::A_ref_m2;
     double m_kg          = Vehicle::m_kg;
     double Jxz_body_kgm2 = Vehicle::Jxz_kgm2;
@@ -53,18 +54,11 @@ types::State derivative(Vehicle const& vehicle, types::State const& x,
     // current altitude
     double h_m = -zpos_ned_m;
 
-    double rho_interp_kgpm3 = physics::ussa1976_density(h_m);
-    double speed_of_sound_m = physics::ussa1976_v_sound(h_m);
-    double true_airspeed_mps =
-        std::sqrt(vx_body_mps * vx_body_mps + vy_body_mps * vy_body_mps
-                  + vz_body_mps * vz_body_mps);
-    double qbar_kgpms2 =
-        0.5 * rho_interp_kgpm3 * true_airspeed_mps * true_airspeed_mps;
-    double mach = true_airspeed_mps / speed_of_sound_m;
+    types::FlightCondition fc = compute_flight_condition(x);
 
     // Angle of attack (alpha) and angle of sideslip (beta)
-    double alpha_rad = std::atan2(vz_body_mps, vx_body_mps + 1E-9);
-    double beta_rad  = std::asin(vy_body_mps / true_airspeed_mps);
+    double alpha_rad = fc.alpha_rad;
+    double beta_rad  = fc.beta_rad;
     double s_alpha   = std::sin(alpha_rad);
     double c_alpha   = std::cos(alpha_rad);
     double s_beta    = std::sin(beta_rad);
@@ -78,29 +72,15 @@ types::State derivative(Vehicle const& vehicle, types::State const& x,
     double gy_body_mps2 = s_phi * c_theta * gz_ned_mps2;
     double gz_body_mps2 = c_phi * c_theta * gz_ned_mps2;
 
-    // Aerodynamic forces
-    double drag_kgmps2 = 0; // CD_approx * qbar_kgpms2 * Aref_m2;
+    // Aerodynamic effects
+    double drag_kgmps2 = 0;
     double side_kgmps2 = 0;
     double lift_kgmps2 = 0;
 
     // External forces
-    double Fx_body_kgmps2 =
-        -(c_alpha * c_beta * drag_kgmps2 - c_alpha * s_beta * side_kgmps2
-          - s_alpha * lift_kgmps2);
-    double Fy_body_kgmps2 = -(s_beta * drag_kgmps2 + c_beta * side_kgmps2);
-    double Fz_body_kgmps2 =
-        -(s_alpha * c_beta * drag_kgmps2 - s_alpha * s_beta * side_kgmps2
-          + c_alpha * lift_kgmps2);
-
-    //     FlightCondition fc{};
-    //     fc.alpha_rad         = alpha_rad;
-    //     fc.beta_rad          = beta_rad;
-    //     fc.qbar_pa           = qbar_kgpms2;
-    //     fc.rho_kgpm3         = rho_interp_kgpm3;
-    //     fc.true_airspeed_mps = true_airspeed_mps;
-    //     fc.wx_rps            = wx_body_rps;
-    //     fc.wy_rps            = wy_body_rps;
-    //     fc.wz_rps            = wz_body_rps;
+    double Fx_body_kgmps2 = loads.fx_b_N;
+    double Fy_body_kgmps2 = loads.fy_b_N;
+    double Fz_body_kgmps2 = loads.fz_b_N;
 
     // External moments
     double l_body_kgm2ps2 = loads.mx_b_Nm;
@@ -169,12 +149,12 @@ types::State derivative(Vehicle const& vehicle, types::State const& x,
 
     if (aux) {
         aux->altitude_m           = h_m;
-        aux->speed_of_sound_mps   = speed_of_sound_m;
-        aux->rho_kgpm3            = rho_interp_kgpm3;
-        aux->mach                 = mach;
+        aux->speed_of_sound_mps   = fc.speed_of_sound_mps;
+        aux->rho_kgpm3            = fc.air_density_kgpm3;
+        aux->mach                 = fc.mach;
         aux->alpha_rad            = alpha_rad;
         aux->beta_rad             = beta_rad;
-        aux->true_airspeed_mps    = true_airspeed_mps;
+        aux->true_airspeed_mps    = fc.true_airspeed_mps;
         aux->c_phi                = c_phi;
         aux->c_psi                = c_psi;
         aux->c_theta              = c_theta;

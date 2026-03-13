@@ -19,6 +19,10 @@ public:
         loads.fy_b_N = 0.0;
         loads.fz_b_N = 0.0;
 
+        loads.mx_b_Nm = 0.0;
+        loads.my_b_Nm = 0.0;
+        loads.mz_b_Nm = 0.0;
+
         return loads;
     }
 };

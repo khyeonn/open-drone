@@ -11,7 +11,8 @@
 #include <vector>
 
 int main() {
-    std::printf("Running simulation...\n");
+    std::printf("Running Simulation...\n");
+
     // Initial conditions
     double u0_bf_mps  = 1E-10;
     double v0_bf_mps  = 0;

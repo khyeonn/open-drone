@@ -20,6 +20,15 @@ struct SphereVehicle {
     static constexpr double Jyy_kgm2 = J_kgm2;
     static constexpr double Jzz_kgm2 = J_kgm2;
     static constexpr double Jxz_kgm2 = 0.0;
+
+    static constexpr double b_m = r_sphere_m; // Reference wing span
+    static constexpr double c_m = r_sphere_m; // Reference wing chord
+
+    static constexpr double Clp = 0.0; // Roll damping from roll rate
+    static constexpr double Clr = 0.0; // Roll damping from yaw rate
+    static constexpr double Cmq = 0.0; // Pitch damping from pitch rate
+    static constexpr double Cnp = 0.0; // Yaw damping from roll rate
+    static constexpr double Cnr = 0.0; // Yaw damping from yaw rate
 };
 
 } // namespace sim::vehicles

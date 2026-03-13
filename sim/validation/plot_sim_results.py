@@ -3,7 +3,7 @@ import argparse
 import pandas as pd
 
 from plotting.style import style_axis
-from plotting.compare import plot_group, plot_group_with_difference
+from plotting.compare import plot_group_with_difference
 from plotting.groups import ANGULAR_RATE, INERTIAL_VELOCITY, NED_VELOCITY, AIR_DATA, EULER_ANGLE
 
 

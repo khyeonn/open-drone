@@ -54,16 +54,16 @@ build-sim:
     @echo "####################### Building simulator... #######################"
     mkdir -p build-sim
     cmake -S sim -B build-sim -DCMAKE_BUILD_TYPE=Debug
-    cmake --build build-sim
+    cmake --build build-sim -j
     just compile-commands
 
 run-sim:
     @echo "####################### Running simulation #######################"
     ./build-sim/drone_sim
 
-validate-sim:
+validate case:
     @echo "####################### Validating simulation #######################"
-    ./build-sim/validate_sim
+    ./build-sim/validate_sim_{{ case }}
 
 plot case:
     @echo "####################### Plotting simulation #######################"

@@ -11,7 +11,7 @@
 #include <vector>
 
 int main() {
-    std::printf("Running NESC Atmospheric Check Case 2...\n");
+    std::printf("Running NESC Atmospheric Check Case 1...\n");
 
     // Initial conditions
     double u0_bf_mps  = 1E-10;
