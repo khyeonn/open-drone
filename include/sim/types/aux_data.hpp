@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sim {
+namespace sim::types {
 
 // Total number of variables = 29
 struct AuxData {
@@ -35,4 +35,4 @@ struct AuxData {
     double yaw_from_dcm_rad;     // x28
 };
 
-} // namespace sim
+} // namespace sim::types

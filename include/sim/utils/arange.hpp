@@ -2,7 +2,7 @@
 
 #include <vector>
 
-namespace utils {
+namespace sim::utils {
 inline std::vector<double> arange(double start, double stop, double step) {
     std::vector<double> result;
 
@@ -11,4 +11,4 @@ inline std::vector<double> arange(double start, double stop, double step) {
 
     return result;
 }
-} // namespace utils
+} // namespace sim::utils

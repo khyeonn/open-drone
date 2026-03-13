@@ -2,7 +2,7 @@
 
 #include <array>
 
-namespace physics {
+namespace sim::physics {
 
 struct AtmosphereRowData {
     double altitude;
@@ -22,4 +22,4 @@ double ussa1976_density(double altitude);
 double ussa1976_v_sound(double altitude);
 double gravity_lookup(double altitude);
 
-} // namespace physics
+} // namespace sim::physics

@@ -1,8 +1,8 @@
-#include "physics/ussa1976.hpp"
+#include "sim/physics/ussa1976.hpp"
 #include <algorithm>
 #include <cmath>
 
-namespace physics {
+namespace sim::physics {
 
 constexpr double g0    = 9.80665;
 constexpr double R     = 287.05287;
@@ -27,7 +27,7 @@ constexpr Layer layers[] = {
     {71000, 214.65,  3.95642,  -0.002}
 };
 
-constexpr physics::AtmosphereRowData compute_point(double h) {
+constexpr sim::physics::AtmosphereRowData compute_point(double h) {
     Layer const* L = &layers[0];
 
     constexpr std::size_t NUM_LAYERS = sizeof(layers) / sizeof(layers[0]);
@@ -52,11 +52,13 @@ constexpr double compute_gravity(double h) {
     return g0 * (Re * Re) / (r * r);
 }
 
-constexpr std::array<physics::AtmosphereRowData, physics::ATM_TABLE_SIZE>
+constexpr std::array<sim::physics::AtmosphereRowData,
+                     sim::physics::ATM_TABLE_SIZE>
 generate_table() {
-    std::array<physics::AtmosphereRowData, physics::ATM_TABLE_SIZE> table{};
+    std::array<sim::physics::AtmosphereRowData, sim::physics::ATM_TABLE_SIZE>
+        table{};
 
-    for (std::size_t i = 0; i < physics::ATM_TABLE_SIZE; ++i) {
+    for (std::size_t i = 0; i < sim::physics::ATM_TABLE_SIZE; ++i) {
         double altitude = i * 100.0;
 
         table[i] = compute_point(altitude);
@@ -65,10 +67,11 @@ generate_table() {
     return table;
 }
 
-constexpr std::array<double, ATM_TABLE_SIZE> generate_gravity_table() {
-    std::array<double, ATM_TABLE_SIZE> table{};
+constexpr std::array<double, sim::physics::ATM_TABLE_SIZE>
+generate_gravity_table() {
+    std::array<double, sim::physics::ATM_TABLE_SIZE> table{};
 
-    for (std::size_t i = 0; i < ATM_TABLE_SIZE; ++i) {
+    for (std::size_t i = 0; i < sim::physics::ATM_TABLE_SIZE; ++i) {
         double const altitude = static_cast<double>(i) * DZ;
 
         table[i] = compute_gravity(altitude);
@@ -77,12 +80,12 @@ constexpr std::array<double, ATM_TABLE_SIZE> generate_gravity_table() {
     return table;
 }
 
-std::array<physics::AtmosphereRowData, physics::ATM_TABLE_SIZE> const
+std::array<sim::physics::AtmosphereRowData, sim::physics::ATM_TABLE_SIZE> const
     ATM_TABLE = generate_table();
-std::array<double, ATM_TABLE_SIZE> const GRAVITY_TABLE =
+std::array<double, sim::physics::ATM_TABLE_SIZE> const GRAVITY_TABLE =
     generate_gravity_table();
 
-physics::AtmosphereRowData ussa1976_lookup(double altitude) {
+sim::physics::AtmosphereRowData ussa1976_lookup(double altitude) {
     altitude = std::clamp(altitude, 0.0, 86000.0);
 
     constexpr double inv_step = 1.0 / 100.0;
@@ -90,14 +93,14 @@ physics::AtmosphereRowData ussa1976_lookup(double altitude) {
     double const x = altitude * inv_step;
     int const i    = static_cast<int>(x);
 
-    if (i >= physics::ATM_TABLE_SIZE - 1) {
-        return ATM_TABLE[physics::ATM_TABLE_SIZE - 1];
+    if (i >= sim::physics::ATM_TABLE_SIZE - 1) {
+        return ATM_TABLE[sim::physics::ATM_TABLE_SIZE - 1];
     }
 
     double const t = x - static_cast<double>(i);
 
-    physics::AtmosphereRowData const& a = ATM_TABLE[i];
-    physics::AtmosphereRowData const& b = ATM_TABLE[i + 1];
+    sim::physics::AtmosphereRowData const& a = ATM_TABLE[i];
+    sim::physics::AtmosphereRowData const& b = ATM_TABLE[i + 1];
 
     return {altitude, a.temperature + t * (b.temperature - a.temperature),
             a.pressure + t * (b.pressure - a.pressure),
@@ -113,14 +116,14 @@ double ussa1976_density(double altitude) {
     double const x = altitude * inv_step;
     int const i    = static_cast<int>(x);
 
-    if (i >= physics::ATM_TABLE_SIZE - 1) {
-        return ATM_TABLE[physics::ATM_TABLE_SIZE - 1].density;
+    if (i >= sim::physics::ATM_TABLE_SIZE - 1) {
+        return ATM_TABLE[sim::physics::ATM_TABLE_SIZE - 1].density;
     }
 
     double const t = x - static_cast<double>(i);
 
-    physics::AtmosphereRowData const& a = ATM_TABLE[i];
-    physics::AtmosphereRowData const& b = ATM_TABLE[i + 1];
+    sim::physics::AtmosphereRowData const& a = ATM_TABLE[i];
+    sim::physics::AtmosphereRowData const& b = ATM_TABLE[i + 1];
 
     return a.density + t * (b.density - a.density);
 }
@@ -133,14 +136,14 @@ double ussa1976_v_sound(double altitude) {
     double const x = altitude * inv_step;
     int const i    = static_cast<int>(x);
 
-    if (i >= physics::ATM_TABLE_SIZE - 1) {
-        return ATM_TABLE[physics::ATM_TABLE_SIZE - 1].speed_of_sound;
+    if (i >= sim::physics::ATM_TABLE_SIZE - 1) {
+        return ATM_TABLE[sim::physics::ATM_TABLE_SIZE - 1].speed_of_sound;
     }
 
     double const t = x - static_cast<double>(i);
 
-    physics::AtmosphereRowData const& a = ATM_TABLE[i];
-    physics::AtmosphereRowData const& b = ATM_TABLE[i + 1];
+    sim::physics::AtmosphereRowData const& a = ATM_TABLE[i];
+    sim::physics::AtmosphereRowData const& b = ATM_TABLE[i + 1];
 
     return a.speed_of_sound + t * (b.speed_of_sound - a.speed_of_sound);
 }
@@ -153,8 +156,8 @@ double gravity_lookup(double altitude) {
     double const x      = altitude * inv_step;
     std::size_t const i = static_cast<std::size_t>(x);
 
-    if (i >= ATM_TABLE_SIZE - 1) {
-        return GRAVITY_TABLE[ATM_TABLE_SIZE - 1];
+    if (i >= sim::physics::ATM_TABLE_SIZE - 1) {
+        return GRAVITY_TABLE[sim::physics::ATM_TABLE_SIZE - 1];
     }
 
     double const t = x - static_cast<double>(i);
@@ -165,4 +168,4 @@ double gravity_lookup(double altitude) {
     return g_a + t * (g_b - g_a);
 }
 
-} // namespace physics
+} // namespace sim::physics

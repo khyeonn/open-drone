@@ -6,18 +6,16 @@
 #include <iostream>
 #include <sim/math/Eigen/Core>
 
-namespace utils {
-
-inline std::filesystem::path const CSV_OUTPUT_DIR =
-    "./sim/validation/nesc_cases/case_01/sim_results_csv";
+namespace sim::utils {
 
 inline void export_to_csv(Eigen::Matrix<double, 12, Eigen::Dynamic> const& x,
                           std::vector<double> const& t_s,
-                          std::vector<sim::AuxData> const& aux,
+                          std::vector<types::AuxData> const& aux,
+                          std::filesystem::path const& output_dir,
                           std::string const& filename) {
-    std::filesystem::create_directories(CSV_OUTPUT_DIR);
+    std::filesystem::create_directories(output_dir);
 
-    std::filesystem::path filepath = CSV_OUTPUT_DIR / filename;
+    std::filesystem::path filepath = output_dir / filename;
     std::ofstream file(filepath);
 
     if (!file.is_open()) {
@@ -54,7 +52,7 @@ inline void export_to_csv(Eigen::Matrix<double, 12, Eigen::Dynamic> const& x,
         }
 
         // aux data at timestep k
-        sim::AuxData const& a = aux[k];
+        types::AuxData const& a = aux[k];
         file << "," << a.altitude_m;
         file << "," << a.speed_of_sound_mps;
         file << "," << a.rho_kgpm3;
@@ -90,4 +88,4 @@ inline void export_to_csv(Eigen::Matrix<double, 12, Eigen::Dynamic> const& x,
 
     file.close();
 }
-} // namespace utils
+} // namespace sim::utils

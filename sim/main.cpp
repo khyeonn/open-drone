@@ -1,10 +1,12 @@
-#include "core/utils/arange.hpp"
-#include "core/utils/export_to_csv.hpp"
-// #include "sim/math/numerical_methods/forward_euler.hpp"
 #include "sim/math/numerical_methods/rk4.hpp"
+#include "sim/physics/rigid_body_6dof_model.hpp"
+#include "sim/utils/arange.hpp"
+#include "sim/utils/export_to_csv.hpp"
+#include "sim/validation/case1_loads.hpp"
+#include "sim/vehicle_models/sphere_vehicle.hpp"
+
 #include <cmath>
 #include <cstdio>
-
 #include <math/Eigen/Core>
 #include <vector>
 
@@ -37,19 +39,22 @@ int main() {
             .finished();
 
     // Time vector
-    std::vector<double> t_s = utils::arange(t0_s, tf_s + h_s, h_s);
+    std::vector<double> t_s = sim::utils::arange(t0_s, tf_s + h_s, h_s);
     std::size_t nt_s        = t_s.size();
 
     Eigen::Matrix<double, 12, Eigen::Dynamic> x;
     x.resize(12, nt_s);
     x.col(0) = x0;
 
-    physics::FlatEarthEOM model;
-    std::vector<sim::AuxData> aux_log{};
+    sim::physics::Model<sim::vehicles::SphereVehicle,
+                        sim::loads::Case1Loads<sim::vehicles::SphereVehicle>>
+        model{};
+    std::vector<sim::types::AuxData> aux_log{};
 
     // Numerical approximation
-    numerical_methods::rk4(model, x, t_s, h_s, &aux_log);
-    utils::export_to_csv(x, t_s, aux_log, "sim_data_01.csv");
+    std::filesystem::path out_dir = "./sim/validation/drone/sim_results_csv";
+    sim::numerical_methods::rk4(model, x, t_s, h_s, &aux_log);
+    sim::utils::export_to_csv(x, t_s, aux_log, out_dir, "sim_data_01.csv");
 
     std::printf("Simulation complete. Results saved\n");
 

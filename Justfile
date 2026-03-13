@@ -61,6 +61,10 @@ run-sim:
     @echo "####################### Running simulation #######################"
     ./build-sim/drone_sim
 
+validate-sim:
+    @echo "####################### Validating simulation #######################"
+    ./build-sim/validate_sim
+
 plot case:
     @echo "####################### Plotting simulation #######################"
     python3 ./sim/validation/plot_sim_results.py --case case_{{ case }}

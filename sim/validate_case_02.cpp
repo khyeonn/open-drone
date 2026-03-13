@@ -11,7 +11,7 @@
 #include <vector>
 
 int main() {
-    std::printf("Running NESC Atmospheric Check Case 1...\n");
+    std::printf("Running NESC Atmospheric Check Case 2...\n");
 
     // Initial conditions
     double u0_bf_mps  = 1E-10;
@@ -54,7 +54,7 @@ int main() {
 
     // Numerical approximation
     std::filesystem::path out_dir =
-        "./sim/validation/nesc_cases/case_01/sim_results_csv";
+        "./sim/validation/nesc_cases/case_02/sim_results_csv";
     sim::numerical_methods::rk4(model, x, t_s, h_s, &aux_log);
     sim::utils::export_to_csv(x, t_s, aux_log, out_dir, "sim_data_01.csv");
 

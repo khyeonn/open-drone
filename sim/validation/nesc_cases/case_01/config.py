@@ -1,7 +1,11 @@
 CASE_NAME = 'Constant Mass, Dragless Sphere'
 ROOT_PATH = './sim/validation/nesc_cases/case_01/'
-CHECK_CASES_PNG = 'case_01_validation.png'
-SIM_RESULTS_PNG = 'simulation_results.png'
+
+NED_VELOCITY_PNG = 'plots/case_01_ned_velocity.png'
+INERTIAL_VELOCITY_PNG = 'plots/case_01_inertial_velocity.png'
+ANGULAR_RATE_PNG = 'plots/case_01_angular_rate.png'
+EULER_ANGLE_PNG = 'plots/case_01_euler_angle.png'
+AIR_DATA_PNG = 'plots/case_01_air_data.png'
 
 SIM_FILES = [
     'sim_results_csv/sim_data_01.csv'
