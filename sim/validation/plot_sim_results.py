@@ -21,6 +21,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--case", default="case_01", help="NESC check case")
     args = parser.parse_args()
+    case_num = args.case.split("_")[-1]
 
     config = importlib.import_module(f"nesc_cases.{args.case}.config")
     sim_data, nesc_data = load_data(config)
@@ -29,6 +30,7 @@ def main():
         sim_data=sim_data,
         nesc_data=nesc_data,
         specs=NED_VELOCITY,
+        case_num=case_num,
         filename=config.ROOT_PATH + config.NED_VELOCITY_PNG,
         style_axis=style_axis,
     )
@@ -37,6 +39,7 @@ def main():
         sim_data=sim_data,
         nesc_data=nesc_data,
         specs=ANGULAR_RATE,
+        case_num=case_num,
         filename=config.ROOT_PATH  + config.ANGULAR_RATE_PNG,
         style_axis=style_axis,
     )
@@ -45,6 +48,7 @@ def main():
         sim_data=sim_data,
         nesc_data=nesc_data,
         specs=EULER_ANGLE_2,
+        case_num=case_num,
         filename=config.ROOT_PATH + config.EULER_ANGLE_PNG,
         style_axis=style_axis,
     )
@@ -53,6 +57,7 @@ def main():
         sim_data=sim_data,
         nesc_data=nesc_data,
         specs=INERTIAL_VELOCITY,
+        case_num=case_num,
         filename=config.ROOT_PATH + config.INERTIAL_VELOCITY_PNG,
         style_axis=style_axis,
     )
@@ -61,6 +66,7 @@ def main():
         sim_data=sim_data,
         nesc_data=nesc_data,
         specs=AIR_DATA,
+        case_num=case_num,
         filename=config.ROOT_PATH + config.AIR_DATA_PNG,
         style_axis=style_axis,
     )

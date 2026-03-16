@@ -45,7 +45,7 @@ def plot_comparison_axis(ax, sim_data, nesc_data, spec, style_axis):
     plot_nesc_series(ax, nesc_data, spec['nesc_col'])
     plot_sim_series(ax, sim_data, spec['sim_col'], spec.get('transform', identity))
     style_axis(ax)
-    ax.set_title(spec['ylabel'], color='white')
+    ax.set_ylabel(spec['ylabel'], color='white')
     
 
 def plot_group(sim_data, nesc_data, specs, nrows, ncols, filename, style_axis, figsize=(12, 8)):
@@ -54,7 +54,7 @@ def plot_group(sim_data, nesc_data, specs, nrows, ncols, filename, style_axis, f
 
     axes_flat = axes.flat if hasattr(axes, 'flat') else [axes]
 
-    for ax, spec in zip(axes_flat, specs):
+    for ax, spec in zip(axes_flat, specs['series']):
         plot_comparison_axis(ax, sim_data, nesc_data, spec, style_axis)
 
     # hide unused axes
@@ -100,24 +100,25 @@ def plot_difference_series(ax, sim_data, nesc_data, spec):
 def plot_difference_axis(ax, sim_data, nesc_data, spec, style_axis):
     plot_difference_series(ax, sim_data, nesc_data, spec)
     style_axis(ax)
-    ax.set_title(f"Δ {spec['ylabel']}", color='white')
+    ax.set_ylabel(f"Δ{spec['ylabel']}", color='white')
     
     
-def plot_group_with_difference(sim_data, nesc_data, specs, filename, style_axis, figsize=(12, 8)):
-    fig, axes = plt.subplots(len(specs), 2, figsize=figsize)
+def plot_group_with_difference(sim_data, nesc_data, specs, filename, style_axis, case_num, figsize=(12, 8)):
+    fig, axes = plt.subplots(len(specs['series']), 2, figsize=figsize)
+    fig.suptitle(fr"NESC Atmospheric Check Case {case_num} - {specs['title']}", fontsize=14, y=0.93, fontweight='normal', color='white')
     style_figure(fig)
 
-    if len(specs) == 1:
+    if len(specs['series']) == 1:
         axes = [axes]
 
-    for row, spec in enumerate(specs):
+    for row, spec in enumerate(specs['series']):
         ax_main = axes[row][0]
         ax_diff = axes[row][1]
 
         plot_comparison_axis(ax_main, sim_data, nesc_data, spec, style_axis)
         plot_difference_axis(ax_diff, sim_data, nesc_data, spec, style_axis)
 
-    plt.tight_layout()
-    plt.savefig(filename)
+    plt.tight_layout(rect=[0.02, 0.02, 0.97, 0.90])
+    plt.savefig(filename, bbox_inches="tight", pad_inches=0.35)
     plt.close()
     print(f'Figures saved to {filename}')
