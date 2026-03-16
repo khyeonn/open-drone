@@ -1,4 +1,4 @@
-CASE_NAME = 'Constant Mass, Dragless Sphere'
+CASE_NAME = 'Tumbling Brick with No Damping'
 ROOT_PATH = './sim/validation/nesc_cases/case_02/'
 
 NED_VELOCITY_PNG = 'plots/case_02_ned_velocity.png'
