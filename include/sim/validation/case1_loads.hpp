@@ -8,8 +8,7 @@
 
 namespace sim::loads {
 
-template <typename Vehicle> class Case1Loads {
-public:
+template <typename Vehicle> struct Case1Loads {
     types::ExternalLoads compute(Vehicle const& vehicle, types::State const& x,
                                  types::FlightCondition const& fc,
                                  types::AuxData* aux = nullptr) const {

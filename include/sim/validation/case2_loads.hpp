@@ -8,8 +8,7 @@
 
 namespace sim::loads {
 
-template <typename Vehicle> class Case2Loads {
-public:
+template <typename Vehicle> struct Case2Loads {
     types::ExternalLoads compute(Vehicle const& vehicle, types::State const& x,
                                  types::FlightCondition const& fc,
                                  types::AuxData* aux = nullptr) const {
@@ -27,13 +26,13 @@ public:
 
         double C_l =
             vehicle.Clp * x(3) * vehicle.b_m / (2 * fc.true_airspeed_mps)
-            + vehicle.Clr * x(4) * vehicle.b_m / (2 * fc.true_airspeed_mps);
+            + vehicle.Clr * x(5) * vehicle.b_m / (2 * fc.true_airspeed_mps);
 
         double C_m =
             vehicle.Cmq * x(4) * vehicle.c_m / (2 * fc.true_airspeed_mps);
 
         double C_n =
-            vehicle.Cnp * x(4) * vehicle.b_m / (2 * fc.true_airspeed_mps)
+            vehicle.Cnp * x(3) * vehicle.b_m / (2 * fc.true_airspeed_mps)
             + vehicle.Cnr * x(5) * vehicle.b_m / (2 * fc.true_airspeed_mps);
 
         loads.fx_b_N = 0.0;

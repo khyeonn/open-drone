@@ -110,3 +110,24 @@ EULER_ANGLE = [
         'ylabel': 'Yaw Angle [deg]'
     }
 ]
+
+EULER_ANGLE_2 = [
+    {
+        'nesc_col': 'eulerAngle_deg_Roll',
+        'sim_col': 'roll_dcm_rad',
+        'transform': lambda s: s * DEG_PER_RAD,
+        'ylabel': 'Roll Angle [deg]'
+    },
+    {
+        'nesc_col': 'eulerAngle_deg_Pitch',
+        'sim_col': 'pitch_dcm_rad',
+        'transform': lambda s: s * DEG_PER_RAD,
+        'ylabel': 'Pitch Angle [deg]'
+    },
+    {
+        'nesc_col': 'eulerAngle_deg_Yaw',
+        'sim_col': 'yaw_dcm_rad',
+        'transform': lambda s: s * DEG_PER_RAD,
+        'ylabel': 'Yaw Angle [deg]'
+    }
+]

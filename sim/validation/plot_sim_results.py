@@ -1,10 +1,9 @@
 import importlib
 import argparse
 import pandas as pd
-
 from plotting.style import style_axis
 from plotting.compare import plot_group_with_difference
-from plotting.groups import ANGULAR_RATE, INERTIAL_VELOCITY, NED_VELOCITY, AIR_DATA, EULER_ANGLE
+from plotting.groups import ANGULAR_RATE, EULER_ANGLE_2, INERTIAL_VELOCITY, NED_VELOCITY, AIR_DATA
 
 
 def load_data(config, tol=1e-9):
@@ -45,7 +44,7 @@ def main():
     plot_group_with_difference(
         sim_data=sim_data,
         nesc_data=nesc_data,
-        specs=EULER_ANGLE,
+        specs=EULER_ANGLE_2,
         filename=config.ROOT_PATH + config.EULER_ANGLE_PNG,
         style_axis=style_axis,
     )

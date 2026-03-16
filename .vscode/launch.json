@@ -9,10 +9,10 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Debug drone_sim",
+            "name": "Debug sim",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build-sim/drone_sim",
+            "program": "${workspaceFolder}/build-sim/validate_sim_02",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

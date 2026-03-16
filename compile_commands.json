@@ -6,6 +6,18 @@
     "output": "CMakeFiles/drone_sim.dir/main.cpp.o"
   },
   {
+    "directory": "/workspace/build-sim",
+    "command": "/usr/bin/c++  -I/workspace/sim/../include/sim -I/workspace/sim/../include/core -I/workspace/core/../include -I/workspace/sim/src/physics/../../include -g -std=gnu++17 -o CMakeFiles/validate_sim_01.dir/validate_case_01.cpp.o -c /workspace/sim/validate_case_01.cpp",
+    "file": "/workspace/sim/validate_case_01.cpp",
+    "output": "CMakeFiles/validate_sim_01.dir/validate_case_01.cpp.o"
+  },
+  {
+    "directory": "/workspace/build-sim",
+    "command": "/usr/bin/c++  -I/workspace/sim/../include/sim -I/workspace/sim/../include/core -I/workspace/core/../include -I/workspace/sim/src/physics/../../include -g -std=gnu++17 -o CMakeFiles/validate_sim_02.dir/validate_case_02.cpp.o -c /workspace/sim/validate_case_02.cpp",
+    "file": "/workspace/sim/validate_case_02.cpp",
+    "output": "CMakeFiles/validate_sim_02.dir/validate_case_02.cpp.o"
+  },
+  {
     "directory": "/workspace/build-sim/core_build",
     "command": "/usr/bin/c++  -I/workspace/core/../include -g -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles/drone_core.dir/estimation/mekf.cpp.o -c /workspace/core/estimation/mekf.cpp",
     "file": "/workspace/core/estimation/mekf.cpp",
