@@ -25,7 +25,8 @@
         "ms-python.python",
         "ms-python.pylint",
         "ms-python.vscode-pylance",
-        "mechatroner.rainbow-csv"
+        "mechatroner.rainbow-csv",
+        "alexnesnes.teleplot"
       ],
       "settings": {
         "python.defaultInterpreterPath": "/opt/venv/bin/python"

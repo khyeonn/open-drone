@@ -3,16 +3,16 @@
 namespace sim::types {
 
 struct FlightCondition {
-    double air_density_kgpm3{};
-    double true_airspeed_mps{};
-    double dynamic_pressure{};
-    double speed_of_sound_mps{};
-    double mach{};
-    double alpha_rad{};
-    double beta_rad{};
-    double omega_x{};
-    double omega_y{};
-    double omega_z{};
+    double air_density_kgpm3  = 0.0;
+    double true_airspeed_mps  = 0.0;
+    double dynamic_pressure   = 0.0;
+    double speed_of_sound_mps = 0.0;
+    double mach               = 0.0;
+    double alpha_rad          = 0.0;
+    double beta_rad           = 0.0;
+    double omega_x            = 0.0;
+    double omega_y            = 0.0;
+    double omega_z            = 0.0;
 };
 
 } // namespace sim::types
