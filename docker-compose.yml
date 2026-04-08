@@ -1,0 +1,18 @@
+services:
+  app:
+    container_name: pico-drone-dev
+
+    image: opendrone:pico-v1.0
+
+    # Build using the Dockerfile in your .devcontainer folder
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+
+    # # Mount your current directory to /workspace in the container
+    volumes:
+      - .:/workspace:cached
+
+    # Keep the container running in the background
+    tty: true
+    stdin_open: true
