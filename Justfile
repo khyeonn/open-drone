@@ -1,6 +1,6 @@
 # Default task
 verify:
-    @echo "####################### Verifying container #######################"
+    @echo "\033[1;33m####################### Verifying container #######################\033[0m"
     @echo "PICO_SDK_PATH: $PICO_SDK_PATH"
     @echo "picotool version: `picotool version`"
     @echo "ARM GCC version: `arm-none-eabi-gcc --version | head -n 1`"
@@ -23,48 +23,48 @@ compile-commands:
     with open("compile_commands.json", "w") as fp:
         json.dump(merged, fp, indent=2)
 
-# Clean build
+# Remove build dir
 clean-pico:
-    @echo "####################### Cleaning firmware build folder #######################"
+    @echo "\033[1;31m####################### Cleaning firmware build folder #######################\033[0m"
     rm -rf build
 
-# Clean build-sim
+# Remove build-sim dir
 clean-sim:
-    @echo "####################### Cleaning simulation build folder #######################"
+    @echo "\033[1;31m####################### Cleaning simulation build folder #######################\033[0m"
     rm -rf build-sim
 
 # Clean all
 clean:
-    @echo "####################### Cleaning all builds #######################"
+    @echo "\033[1;31m####################### Cleaning all builds #######################\033[0m"
     rm -rf build
     rm -rf build-sim
 
 # Configuring CMake for firmwre
 configure:
-    @echo "####################### Configuring CMake #######################"
+    @echo "\033[1;34m####################### Configuring CMake #######################\033[0m"
     cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 
 # Build firmware
 build-pico:
-    @echo "####################### Building firmware... #######################"
+    @echo "\033[1;34m####################### Building firmware... #######################\033[0m"
     cmake --build build -j
     just compile-commands
 
 build-sim:
-    @echo "####################### Building simulator... #######################"
+    @echo "\033[1;34m####################### Building simulator... #######################\033[0m"
     mkdir -p build-sim
     cmake -S sim -B build-sim -DCMAKE_BUILD_TYPE=Debug
     cmake --build build-sim -j
     just compile-commands
 
 run-sim:
-    @echo "####################### Running simulation #######################"
+    @echo "\033[1;32m####################### Running simulation #######################\033[0m"
     ./build-sim/drone_sim
 
 validate case:
-    @echo "####################### Validating simulation #######################"
+    @echo "\033[1;32m####################### Validating simulation #######################\033[0m"
     ./build-sim/validate_sim_{{ case }}
 
 plot case:
-    @echo "####################### Plotting simulation #######################"
+    @echo "\033[1;32m####################### Plotting simulation #######################\033[0m"
     python3 ./sim/validation/plot_sim_results.py --case case_{{ case }}
