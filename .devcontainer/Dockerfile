@@ -54,3 +54,5 @@ RUN pip install --no-cache-dir --upgrade pip \
     'python-lsp-server[all]'
 
 WORKDIR /workspace
+
+RUN echo "PS1='\[\e[38;5;135m\]dev\[\e[0m\] \[\e[38;5;117;2;3m\]\w\[\e[0m\] > '" >> /root/.bashrc
