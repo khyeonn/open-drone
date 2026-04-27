@@ -11,13 +11,14 @@
   // Disable MS C++ formatting and IntelliSense
   "C_Cpp.formatting": "disabled",
   "C_Cpp.intelliSenseEngine": "disabled",
-  // clangd tuning
   "clangd.arguments": [
     "--background-index",
     "--clang-tidy",
     "--completion-style=detailed",
     "--query-driver=/usr/bin/arm-none-eabi-g++",
-    "--header-insertion=never"
+    "--header-insertion=never",
+    // "--path-mappings=${workspaceFolder}>/workspace",
+    "--query-driver=/usr/bin/g++,/usr/bin/clang++"
   ],
   "python.defaultInterpreterPath": "/opt/venv/bin/python",
   "python.languageServer": "Pylance",

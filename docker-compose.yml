@@ -11,8 +11,8 @@ services:
 
     # # Mount your current directory to /workspace in the container
     volumes:
-      - .:/workspace:cached
-
+      - .:${PWD}
+    working_dir: ${PWD}
     # Keep the container running in the background
     tty: true
     stdin_open: true

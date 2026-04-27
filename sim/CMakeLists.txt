@@ -22,8 +22,8 @@ endforeach()
 add_library(sim_common INTERFACE)
 
 target_include_directories(sim_common INTERFACE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include/sim
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(sim_common INTERFACE

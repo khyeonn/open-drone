@@ -7,7 +7,7 @@
 
 #include <cmath>
 #include <cstdio>
-#include <math/Eigen/Core>
+#include <sim/math/Eigen/Core>
 #include <vector>
 
 int main() {
