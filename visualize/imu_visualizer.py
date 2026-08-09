@@ -16,9 +16,8 @@ Modes:
     --source file     replay a CSV recorded with --record
     --source sim      synthetic data, useful to test without hardware
 
-GUI mode requires numpy + matplotlib (install via the docker-compose
-`visualizer` service or the devcontainer venv). --headless mode only needs
-pyserial and is useful over SSH / for testing.
+GUI mode requires numpy + matplotlib + pyserial (installed in the devcontainer
+venv). --headless mode only needs pyserial and is useful over SSH / for testing.
 """
 
 from __future__ import annotations

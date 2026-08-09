@@ -111,9 +111,3 @@ visualize-file file:
     @printf "\033[1;32m####################### Replaying {{ file }} #######################\033[0m\n"
     python3 ./visualize/imu_visualizer.py --source file --file {{ file }}
 
-# Build + run the visualizer in a plain docker container (no devcontainer)
-visualize-docker:
-    @printf "\033[1;32m####################### Building visualizer image #######################\033[0m\n"
-    docker compose build visualizer
-    @printf "\033[1;32m####################### Launching IMU visualizer in docker #######################\033[0m\n"
-    docker compose run --rm visualizer
