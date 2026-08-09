@@ -16,3 +16,29 @@ services:
     # Keep the container running in the background
     tty: true
     stdin_open: true
+
+  visualizer:
+    container_name: pico-drone-visualizer
+
+    image: opendrone:visualizer
+
+    build:
+      context: .
+      dockerfile: visualize/Dockerfile
+
+    volumes:
+      - .:/workspace
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    working_dir: /workspace
+
+    environment:
+      - DISPLAY=${DISPLAY}
+
+    # Let the container see the Pico's USB serial port and open an X11 window
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    privileged: true
+
+    tty: true
+    stdin_open: true
+

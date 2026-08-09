@@ -28,6 +28,7 @@ int main() {
     imu.calibrate_mag();
     printf("Magnetometer calibration done.\n");
     printf("Pico Drone v1.1 Initialized!\n");
+    printf("q_w,q_x,q_y,q_z,accel_x_g,accel_y_g,accel_z_g,gyro_x_dps,gyro_y_dps,gyro_z_dps,mag_x_ut,mag_y_ut,mag_z_ut,temp_c\n");
 
     absolute_time_t last_time = get_absolute_time();
     while (true) {
@@ -55,14 +56,12 @@ int main() {
         filter.predict(gyro, dt);
         filter.update(accel, mag);
 
-        printf("%.2f, %.2f, %.2f, %.2f\n", filter.get_quat().w, filter.get_quat().x, filter.get_quat().y,
-               filter.get_quat().z);
-
-        // printf("ax=%6.2f ay=%6.2f az=%6.2f gx=%6.2f gy=%6.2f gz=%6.2f mx=%6.2f, my=%6.2f, mz=%6.2f, T=%5.2f degC\n",
-        //         accel.x, accel.y, accel.z,
-        //         gyro.x, gyro.y, gyro.z,
-        //         mag.x, mag.y, mag.z,
-        //         temp);
+        printf("%.4f,%.4f,%.4f,%.4f,%.3f,%.3f,%.3f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n",
+               filter.get_quat().w, filter.get_quat().x, filter.get_quat().y, filter.get_quat().z, //
+               accel.x, accel.y, accel.z,                                                          //
+               gyro.x, gyro.y, gyro.z,                                                             //
+               mag.x, mag.y, mag.z,                                                                //
+               temp);
 
         sleep_ms(50);
     }
