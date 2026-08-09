@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-pip python3-venv \
     g++ pkg-config build-essential \
     clang clang-format clangd libc++-dev libc++abi-dev \
+    python3-tk \
     && rm -rf /var/lib/apt/lists/*
 
 # Just is avaible via apt only in Debian 13+ so build from prebuilt binaries
@@ -50,7 +51,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir \
-    numpy matplotlib pandas pylint \
+    numpy matplotlib pandas pylint pyserial \
     'python-lsp-server[all]'
 
 WORKDIR /workspace

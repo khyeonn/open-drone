@@ -16,3 +16,4 @@ services:
     # Keep the container running in the background
     tty: true
     stdin_open: true
+
